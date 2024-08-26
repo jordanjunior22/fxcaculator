@@ -58,7 +58,7 @@ const Home = () => {
               step="0.01"
               value={stopLoss}
               onChange={(e) => setStopLoss(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -69,7 +69,7 @@ const Home = () => {
               step="0.01"
               value={entryPrice}
               onChange={(e) => setEntryPrice(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -80,7 +80,7 @@ const Home = () => {
               step="0.01"
               value={takeProfit}
               onChange={(e) => setTakeProfit(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -91,7 +91,7 @@ const Home = () => {
               step="0.01"
               value={accountSize}
               onChange={(e) => setAccountSize(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -102,7 +102,7 @@ const Home = () => {
               step="0.01"
               value={riskPerTrade}
               onChange={(e) => setRiskPerTrade(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
