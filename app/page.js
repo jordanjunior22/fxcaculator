@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from 'react';
 import Head from 'next/head';
 
@@ -10,6 +10,12 @@ const Home = () => {
   const [riskPerTrade, setRiskPerTrade] = useState('');
 
   const [results, setResults] = useState(null);
+
+  const calculateLotSize = (positionSize) => {
+    const digitCount = positionSize.toFixed(0).length;
+    const divisor = Math.pow(10, digitCount);
+    return positionSize / divisor;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +32,7 @@ const Home = () => {
 
     const riskPerShare = Math.abs(entry - sl);
     const positionSize = Math.abs(risk) / riskPerShare;
+    const lotSize = calculateLotSize(positionSize);  // Calculate lot size here
     const totalRisk = positionSize * riskPerShare;
     const profitPerShare = Math.abs(entry - tp);
     const totalProfit = positionSize * profitPerShare;
@@ -33,6 +40,7 @@ const Home = () => {
 
     setResults({
       positionSize: positionSize.toFixed(0),
+      lotSize: lotSize.toFixed(4),   // Format to 4 decimal places for clarity
       totalRisk: totalRisk.toFixed(2),
       totalProfit: totalProfit.toFixed(2),
       riskRewardRatio: riskRewardRatio.toFixed(2),
@@ -115,6 +123,7 @@ const Home = () => {
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Results</h2>
             <p className="text-lg text-gray-700">Position Size: {results.positionSize} shares</p>
+            <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>   {/* Display lot size */}
             <p className="text-lg text-gray-700">Total Risk: ${results.totalRisk}</p>
             <p className="text-lg text-gray-700">Total Potential Profit: ${results.totalProfit}</p>
             <p className="text-lg text-gray-700">Risk-Reward Ratio: {results.riskRewardRatio}</p>
