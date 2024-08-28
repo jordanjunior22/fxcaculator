@@ -67,7 +67,7 @@ const Home = () => {
         <h1 className="text-3xl font-extrabold text-center text-gray-800">Forex Risk Calculator</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-end space-x-2">
             <div className="flex flex-col flex-grow">
               <label className="text-lg font-medium text-gray-700">Stop Loss (SL):</label>
               <input
@@ -87,7 +87,7 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-end space-x-2">
             <div className="flex flex-col flex-grow">
               <label className="text-lg font-medium text-gray-700">Entry Price:</label>
               <input
@@ -107,7 +107,7 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-end space-x-2">
             <div className="flex flex-col flex-grow">
               <label className="text-lg font-medium text-gray-700">Take Profit (TP):</label>
               <input
@@ -159,7 +159,7 @@ const Home = () => {
         {results && (
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Results</h2>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-end space-x-2">
               <div className="flex flex-col flex-grow">
                 <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>
               </div>
