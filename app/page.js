@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from 'react';
 import Head from 'next/head';
 
@@ -25,17 +25,38 @@ const Home = () => {
     }
 
     const riskPerShare = Math.abs(entry - sl);
-    const positionSize = Math.abs(risk) / riskPerShare;
-    const totalRisk = positionSize * riskPerShare;
+    const positionSize = calculatePositionSize(riskPerTrade);
+    const lotSize = calculateLotSize(positionSize);
+    const totalRisk = lotSize * riskPerShare;
     const profitPerShare = Math.abs(entry - tp);
-    const totalProfit = positionSize * profitPerShare;
+    const totalProfit = lotSize * profitPerShare;
     const riskRewardRatio = profitPerShare / riskPerShare;
 
     setResults({
       positionSize: positionSize.toFixed(0),
+      lotSize: lotSize.toFixed(0),
       totalRisk: totalRisk.toFixed(2),
       totalProfit: totalProfit.toFixed(2),
       riskRewardRatio: riskRewardRatio.toFixed(2),
+    });
+  };
+
+  const calculatePositionSize = (riskPerTrade) => {
+    return parseFloat(riskPerTrade);
+  };
+
+  const calculateLotSize = (positionSize) => {
+    const positionSizeStr = positionSize.toString();
+    const trailingZeros = positionSizeStr.length - (positionSizeStr.indexOf('.') + 1 || positionSizeStr.length);
+    const divisor = Math.pow(10, trailingZeros);
+    return positionSize / divisor;
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard!");
+    }, (err) => {
+      alert("Failed to copy text: " + err);
     });
   };
 
@@ -53,58 +74,103 @@ const Home = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col">
             <label className="text-lg font-medium text-gray-700">Stop Loss (SL):</label>
-            <input
-              type="number"
-              step="0.01"
-              value={stopLoss}
-              onChange={(e) => setStopLoss(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex">
+              <input
+                type="number"
+                step="0.01"
+                value={stopLoss}
+                onChange={(e) => setStopLoss(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => copyToClipboard(stopLoss)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
           <div className="flex flex-col">
             <label className="text-lg font-medium text-gray-700">Entry Price:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={entryPrice}
-              onChange={(e) => setEntryPrice(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex">
+              <input
+                type="number"
+                step="0.01"
+                value={entryPrice}
+                onChange={(e) => setEntryPrice(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => copyToClipboard(entryPrice)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
           <div className="flex flex-col">
             <label className="text-lg font-medium text-gray-700">Take Profit (TP):</label>
-            <input
-              type="number"
-              step="0.01"
-              value={takeProfit}
-              onChange={(e) => setTakeProfit(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex">
+              <input
+                type="number"
+                step="0.01"
+                value={takeProfit}
+                onChange={(e) => setTakeProfit(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => copyToClipboard(takeProfit)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
           <div className="flex flex-col">
             <label className="text-lg font-medium text-gray-700">Account Size:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={accountSize}
-              onChange={(e) => setAccountSize(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex">
+              <input
+                type="number"
+                step="0.01"
+                value={accountSize}
+                onChange={(e) => setAccountSize(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => copyToClipboard(accountSize)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
           <div className="flex flex-col">
             <label className="text-lg font-medium text-gray-700">Risk per Trade:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={riskPerTrade}
-              onChange={(e) => setRiskPerTrade(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+            <div className="flex">
+              <input
+                type="number"
+                step="0.01"
+                value={riskPerTrade}
+                onChange={(e) => setRiskPerTrade(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => copyToClipboard(riskPerTrade)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Calculate
@@ -114,10 +180,56 @@ const Home = () => {
         {results && (
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Results</h2>
-            <p className="text-lg text-gray-700">Position Size: {results.positionSize} shares</p>
-            <p className="text-lg text-gray-700">Total Risk: ${results.totalRisk}</p>
-            <p className="text-lg text-gray-700">Total Potential Profit: ${results.totalProfit}</p>
-            <p className="text-lg text-gray-700">Risk-Reward Ratio: {results.riskRewardRatio}</p>
+            <div className="flex items-center">
+              <p className="text-lg text-gray-700">Position Size: {results.positionSize} shares</p>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(results.positionSize)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="flex items-center mt-2">
+              <p className="text-lg text-gray-700">Lot Size: {results.lotSize} shares</p>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(results.lotSize)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="flex items-center mt-2">
+              <p className="text-lg text-gray-700">Total Risk: ${results.totalRisk}</p>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(results.totalRisk)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="flex items-center mt-2">
+              <p className="text-lg text-gray-700">Total Potential Profit: ${results.totalProfit}</p>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(results.totalProfit)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="flex items-center mt-2">
+              <p className="text-lg text-gray-700">Risk-Reward Ratio: {results.riskRewardRatio}</p>
+              <button
+                type="button"
+                onClick={() => copyToClipboard(results.riskRewardRatio)}
+                className="ml-2 py-2 px-4 bg-gray-300 text-black rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
           </div>
         )}
       </main>
