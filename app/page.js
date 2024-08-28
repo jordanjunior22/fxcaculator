@@ -67,82 +67,110 @@ const Home = () => {
         <h1 className="text-3xl font-extrabold text-center text-gray-800">Forex Risk Calculator</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex flex-col">
-            <label className="text-lg font-medium text-gray-700">Stop Loss (SL):</label>
-            <input
-              type="number"
-              step="0.01"
-              value={stopLoss}
-              onChange={(e) => setStopLoss(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col flex-grow">
+              <label className="text-lg font-medium text-gray-700">Stop Loss (SL):</label>
+              <input
+                type="number"
+                step="0.01"
+                value={stopLoss}
+                onChange={(e) => setStopLoss(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <button
+              onClick={() => copyToClipboard(`Stop Loss: ${stopLoss}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy
+            </button>
           </div>
-          <div className="flex flex-col">
-            <label className="text-lg font-medium text-gray-700">Entry Price:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={entryPrice}
-              onChange={(e) => setEntryPrice(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col flex-grow">
+              <label className="text-lg font-medium text-gray-700">Entry Price:</label>
+              <input
+                type="number"
+                step="0.01"
+                value={entryPrice}
+                onChange={(e) => setEntryPrice(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <button
+              onClick={() => copyToClipboard(`Entry Price: ${entryPrice}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy
+            </button>
           </div>
-          <div className="flex flex-col">
-            <label className="text-lg font-medium text-gray-700">Take Profit (TP):</label>
-            <input
-              type="number"
-              step="0.01"
-              value={takeProfit}
-              onChange={(e) => setTakeProfit(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col flex-grow">
+              <label className="text-lg font-medium text-gray-700">Take Profit (TP):</label>
+              <input
+                type="number"
+                step="0.01"
+                value={takeProfit}
+                onChange={(e) => setTakeProfit(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <button
+              onClick={() => copyToClipboard(`Take Profit: ${takeProfit}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy
+            </button>
           </div>
-          <div className="flex flex-col">
-            <label className="text-lg font-medium text-gray-700">Account Size:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={accountSize}
-              onChange={(e) => setAccountSize(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col flex-grow">
+              <label className="text-lg font-medium text-gray-700">Account Size:</label>
+              <input
+                type="number"
+                step="0.01"
+                value={accountSize}
+                onChange={(e) => setAccountSize(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <button
+              onClick={() => copyToClipboard(`Account Size: ${accountSize}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy
+            </button>
           </div>
-          <div className="flex flex-col">
-            <label className="text-lg font-medium text-gray-700">Risk per Trade:</label>
-            <input
-              type="number"
-              step="0.01"
-              value={riskPerTrade}
-              onChange={(e) => setRiskPerTrade(e.target.value)}
-              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+
+          <div className="flex items-center space-x-2">
+            <div className="flex flex-col flex-grow">
+              <label className="text-lg font-medium text-gray-700">Risk per Trade:</label>
+              <input
+                type="number"
+                step="0.01"
+                value={riskPerTrade}
+                onChange={(e) => setRiskPerTrade(e.target.value)}
+                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <button
+              onClick={() => copyToClipboard(`Risk per Trade: ${riskPerTrade}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy
+            </button>
           </div>
+
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             Calculate
           </button>
         </form>
-
-        <div className="mt-4 flex space-x-2">
-          <button
-            onClick={() => copyToClipboard(`Stop Loss: ${stopLoss}\nEntry Price: ${entryPrice}\nTake Profit: ${takeProfit}`)}
-            className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-          >
-            Copy Inputs
-          </button>
-          {results && (
-            <button
-              onClick={() => copyToClipboard(`Lot Size: ${results.lotSize}`)}
-              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              Copy Lot Size
-            </button>
-          )}
-        </div>
 
         {results && (
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
@@ -163,4 +191,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Home
