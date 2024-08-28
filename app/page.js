@@ -32,7 +32,7 @@ const Home = () => {
 
     const riskPerShare = Math.abs(entry - sl);
     const positionSize = Math.abs(risk) / riskPerShare;
-    const lotSize = calculateLotSize(positionSize);  // Calculate lot size here
+    const lotSize = calculateLotSize(positionSize);
     const totalRisk = positionSize * riskPerShare;
     const profitPerShare = Math.abs(entry - tp);
     const totalProfit = positionSize * profitPerShare;
@@ -40,10 +40,18 @@ const Home = () => {
 
     setResults({
       positionSize: positionSize.toFixed(0),
-      lotSize: lotSize.toFixed(4),   // Format to 4 decimal places for clarity
+      lotSize: lotSize.toFixed(4),
       totalRisk: totalRisk.toFixed(2),
       totalProfit: totalProfit.toFixed(2),
       riskRewardRatio: riskRewardRatio.toFixed(2),
+    });
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Copied to clipboard!');
+    }).catch((err) => {
+      console.error('Failed to copy text: ', err);
     });
   };
 
@@ -119,11 +127,28 @@ const Home = () => {
           </button>
         </form>
 
+        <div className="mt-4 flex space-x-2">
+          <button
+            onClick={() => copyToClipboard(`Stop Loss: ${stopLoss}\nEntry Price: ${entryPrice}\nTake Profit: ${takeProfit}`)}
+            className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            Copy Inputs
+          </button>
+          {results && (
+            <button
+              onClick={() => copyToClipboard(`Lot Size: ${results.lotSize}`)}
+              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            >
+              Copy Lot Size
+            </button>
+          )}
+        </div>
+
         {results && (
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Results</h2>
             <p className="text-lg text-gray-700">Position Size: {results.positionSize} shares</p>
-            <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>   {/* Display lot size */}
+            <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>
             <p className="text-lg text-gray-700">Total Risk: ${results.totalRisk}</p>
             <p className="text-lg text-gray-700">Total Potential Profit: ${results.totalProfit}</p>
             <p className="text-lg text-gray-700">Risk-Reward Ratio: {results.riskRewardRatio}</p>
