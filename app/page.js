@@ -127,44 +127,28 @@ const Home = () => {
             </button>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <div className="flex flex-col flex-grow">
-              <label className="text-lg font-medium text-gray-700">Account Size:</label>
-              <input
-                type="number"
-                step="0.01"
-                value={accountSize}
-                onChange={(e) => setAccountSize(e.target.value)}
-                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <button
-              onClick={() => copyToClipboard(`Account Size: ${accountSize}`)}
-              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              Copy
-            </button>
+          <div className="flex flex-col">
+            <label className="text-lg font-medium text-gray-700">Account Size:</label>
+            <input
+              type="number"
+              step="0.01"
+              value={accountSize}
+              onChange={(e) => setAccountSize(e.target.value)}
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
           </div>
 
-          <div className="flex items-center space-x-2">
-            <div className="flex flex-col flex-grow">
-              <label className="text-lg font-medium text-gray-700">Risk per Trade:</label>
-              <input
-                type="number"
-                step="0.01"
-                value={riskPerTrade}
-                onChange={(e) => setRiskPerTrade(e.target.value)}
-                className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
-            </div>
-            <button
-              onClick={() => copyToClipboard(`Risk per Trade: ${riskPerTrade}`)}
-              className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              Copy
-            </button>
+          <div className="flex flex-col">
+            <label className="text-lg font-medium text-gray-700">Risk per Trade:</label>
+            <input
+              type="number"
+              step="0.01"
+              value={riskPerTrade}
+              onChange={(e) => setRiskPerTrade(e.target.value)}
+              className="mt-1 p-2 border border-gray-300 rounded-lg shadow-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
           </div>
 
           <button type="submit" className="w-full py-2 px-4 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -175,8 +159,18 @@ const Home = () => {
         {results && (
           <div className="mt-6 p-4 bg-gray-100 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold text-gray-800">Results</h2>
-            <p className="text-lg text-gray-700">Position Size: {results.positionSize} shares</p>
-            <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>
+            <div className="flex items-center space-x-2">
+              <div className="flex flex-col flex-grow">
+                <p className="text-lg text-gray-700">Lot Size: {results.lotSize}</p>
+              </div>
+              <button
+                onClick={() => copyToClipboard(`Lot Size: ${results.lotSize}`)}
+                className="py-2 px-4 bg-gray-500 text-white rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              >
+                Copy
+              </button>
+            </div>
+            <p className="text-lg text-gray-700 mt-2">Position Size: {results.positionSize} shares</p>
             <p className="text-lg text-gray-700">Total Risk: ${results.totalRisk}</p>
             <p className="text-lg text-gray-700">Total Potential Profit: ${results.totalProfit}</p>
             <p className="text-lg text-gray-700">Risk-Reward Ratio: {results.riskRewardRatio}</p>
@@ -191,4 +185,4 @@ const Home = () => {
   );
 };
 
-export default Home
+export default Home;
